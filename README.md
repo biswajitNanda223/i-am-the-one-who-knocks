@@ -59,8 +59,9 @@ powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/validate.ps1
 5. Run the [reverse-proxy lab](labs/reverse-proxy/README.md).
 6. Apply the [threat model](docs/appsec/threat-model.md) and [security test plan](docs/appsec/testing.md).
 7. Study [end-to-end AppSec](docs/appsec/end-to-end-appsec.md) and the [SAST, DAST, and VAPT guide](docs/appsec/sast-dast-vapt.md).
-8. Run the [security automation](docs/appsec/security-automation.md) and understand the [cybersecurity map](docs/appsec/cybersecurity-map.md).
-9. Practice the [incident-response runbook](docs/operations/incident-response.md).
+8. Follow the [beginner-to-advanced AppSec course](docs/appsec/course/README.md), including secure TypeScript patterns and exercises.
+9. Run the [security automation](docs/appsec/security-automation.md) and understand the [cybersecurity map](docs/appsec/cybersecurity-map.md).
+10. Practice the [incident-response runbook](docs/operations/incident-response.md).
 
 ## Architecture at a glance
 

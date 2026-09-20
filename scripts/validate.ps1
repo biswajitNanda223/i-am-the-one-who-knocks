@@ -14,6 +14,10 @@ $required = @(
   'docs/appsec/sast-dast-vapt.md',
   'docs/appsec/security-automation.md',
   'docs/appsec/cybersecurity-map.md',
+  'docs/appsec/course/README.md',
+  'docs/appsec/course/01-beginner.md',
+  'docs/appsec/course/02-intermediate.md',
+  'docs/appsec/course/03-advanced.md',
   'labs/reverse-proxy/api/src/server.ts',
   'labs/reverse-proxy/compose.yaml'
 )
