@@ -1,4 +1,5 @@
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
+import { normalizeRequestId } from './security.js';
 
 type JsonValue = string | number | boolean | null;
 type JsonObject = Record<string, JsonValue>;
@@ -38,7 +39,7 @@ function handleRequest(req: IncomingMessage, res: ServerResponse): void {
     sendJson(res, 200, {
       method,
       path,
-      requestId: firstHeader(req, 'x-request-id'),
+      requestId: normalizeRequestId(req.headers['x-request-id']),
       forwardedFor: firstHeader(req, 'x-forwarded-for'),
       forwardedProto: firstHeader(req, 'x-forwarded-proto'),
     });

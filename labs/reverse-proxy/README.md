@@ -8,6 +8,8 @@ This localhost-only lab demonstrates client → edge → TypeScript API traffic,
 cd labs/reverse-proxy/api
 npm ci
 npm run check
+npm test
+npm run audit:prod
 npm run build
 npm start
 ```

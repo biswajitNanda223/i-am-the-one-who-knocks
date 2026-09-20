@@ -12,6 +12,8 @@ $required = @(
   'docs/appsec/threat-model.md',
   'docs/appsec/end-to-end-appsec.md',
   'docs/appsec/sast-dast-vapt.md',
+  'docs/appsec/security-automation.md',
+  'docs/appsec/cybersecurity-map.md',
   'labs/reverse-proxy/api/src/server.ts',
   'labs/reverse-proxy/compose.yaml'
 )
@@ -30,6 +32,8 @@ Push-Location labs/reverse-proxy/api
 try {
   npm ci --ignore-scripts
   npm run check
+  npm test
+  npm run audit:prod
 } finally {
   Pop-Location
 }

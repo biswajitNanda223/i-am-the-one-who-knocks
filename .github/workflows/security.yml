@@ -1,0 +1,68 @@
+name: Security
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "23 3 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  verify:
+    name: TypeScript, tests, dependencies, container
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: labs/reverse-proxy/api
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: labs/reverse-proxy/api/package-lock.json
+      - name: Install locked dependencies
+        run: npm ci --ignore-scripts
+      - name: Type-check
+        run: npm run check
+      - name: Run security unit tests
+        run: npm test
+      - name: Audit production dependencies
+        run: npm run audit:prod
+      - name: Build application
+        run: npm run build
+      - name: Generate CycloneDX SBOM
+        run: npm run sbom
+      - name: Upload SBOM
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-sbom
+          path: labs/reverse-proxy/api/sbom.cdx.json
+          if-no-files-found: error
+      - name: Build container
+        working-directory: .
+        run: docker build --tag knocks-study-api:${{ github.sha }} labs/reverse-proxy/api
+
+  codeql:
+    name: CodeQL SAST
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript-typescript
+          queries: security-extended
+      - name: Analyze
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: /language:javascript-typescript

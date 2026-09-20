@@ -2,6 +2,8 @@
 
 Application security is a continuous engineering system: understand what matters, design controls, build safely, verify them, operate with evidence, and learn from failures.
 
+For working TypeScript controls and CI gates, continue with [security automation](security-automation.md). For the wider defensive context, see [how AppSec fits into cybersecurity](cybersecurity-map.md).
+
 ## The whole lifecycle
 
 ```mermaid
