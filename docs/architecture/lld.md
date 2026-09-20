@@ -5,7 +5,7 @@
 | Component | Responsibility | Interface | Security behavior |
 |---|---|---|---|
 | `edge` | reverse proxy and security headers | host `127.0.0.1:8080`; container `:8080` | hides server version, sets request ID, constrains methods |
-| `api` | health and request-inspection endpoints | private container network `:3000` | non-root, read-only filesystem, no host port |
+| `api` | strict TypeScript health and request-inspection endpoints | private container network `:3000` | non-root, read-only filesystem, no host port |
 | `lab_net` | isolated service communication | Docker bridge | internal API discovery; only edge is published |
 
 ## Container and request flow
@@ -56,6 +56,7 @@ flowchart LR
 - Root filesystems are read-only; `/tmp` uses bounded `tmpfs`.
 - Linux capabilities are dropped and privilege escalation is disabled.
 - Images are pinned to stable version lines. Production systems should pin immutable digests.
+- TypeScript is compiled in a separate container stage; compiler dependencies are absent from the runtime image.
 - Health checks determine dependency readiness.
 
 ## Production delta

@@ -1,6 +1,18 @@
 # Reverse-proxy networking lab
 
-This localhost-only lab demonstrates client → edge → API traffic, container DNS, proxy headers, request IDs, health checks, and basic runtime hardening.
+This localhost-only lab demonstrates client → edge → TypeScript API traffic, container DNS, proxy headers, request IDs, health checks, and basic runtime hardening. The API is compiled with strict TypeScript settings in a multi-stage container build.
+
+## API development
+
+```bash
+cd labs/reverse-proxy/api
+npm ci
+npm run check
+npm run build
+npm start
+```
+
+Generated `dist/` files and dependencies are intentionally excluded from Git.
 
 ## Start
 

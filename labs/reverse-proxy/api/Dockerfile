@@ -1,8 +1,16 @@
-FROM node:22-alpine
+FROM node:22-alpine AS build
 
 WORKDIR /app
-COPY --chown=node:node server.js ./server.js
+COPY package.json package-lock.json tsconfig.json ./
+RUN npm ci
+COPY src ./src
+RUN npm run build
+
+FROM node:22-alpine AS runtime
+
+WORKDIR /app
+COPY --from=build --chown=node:node /app/dist ./dist
 
 USER node
 EXPOSE 3000
-CMD ["node", "server.js"]
+CMD ["node", "dist/server.js"]

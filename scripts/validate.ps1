@@ -10,6 +10,9 @@ $required = @(
   'docs/architecture/README.md',
   'docs/architecture/lld.md',
   'docs/appsec/threat-model.md',
+  'docs/appsec/end-to-end-appsec.md',
+  'docs/appsec/sast-dast-vapt.md',
+  'labs/reverse-proxy/api/src/server.ts',
   'labs/reverse-proxy/compose.yaml'
 )
 
@@ -23,7 +26,13 @@ foreach ($file in $markdown) {
   if ($fences % 2 -ne 0) { throw "Unbalanced code fence: $($file.FullName)" }
 }
 
-node --check labs/reverse-proxy/api/server.js
+Push-Location labs/reverse-proxy/api
+try {
+  npm ci --ignore-scripts
+  npm run check
+} finally {
+  Pop-Location
+}
 if (Get-Command docker -ErrorAction SilentlyContinue) {
   docker compose -f labs/reverse-proxy/compose.yaml config --quiet
 }
