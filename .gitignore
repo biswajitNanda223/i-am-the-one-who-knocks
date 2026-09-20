@@ -1,0 +1,25 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+secrets/
+
+# Captures and evidence may contain sensitive data
+*.pcap
+*.pcapng
+evidence/
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Runtime and build output
+node_modules/
+dist/
+coverage/
+*.log
