@@ -42,7 +42,7 @@ jobs:
       - name: Generate CycloneDX SBOM
         run: npm run sbom
       - name: Upload SBOM
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: api-sbom
           path: labs/reverse-proxy/api/sbom.cdx.json
